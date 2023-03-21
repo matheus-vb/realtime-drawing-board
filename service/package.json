@@ -1,0 +1,24 @@
+{
+  "name": "service",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "tsx watch source/server.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^18.15.5",
+    "tsup": "^6.7.0",
+    "tsx": "^3.12.6",
+    "typescript": "^5.0.2"
+  },
+  "dependencies": {
+    "fastify": "^4.15.0",
+    "fastify-socket.io": "^4.0.0",
+    "socket.io": "^4.6.1",
+    "types-fastify-socket.io": "^0.0.1"
+  }
+}
