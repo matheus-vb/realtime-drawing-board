@@ -36,4 +36,14 @@ final class SocketService: ObservableObject {
         
         socket.connect()
     }
+    
+    func sendLines() {
+        do {
+            let data = try JSONSerialization.data(withJSONObject: lines, options: [])
+            let strBase64 = data.base64EncodedString(options: .lineLength64Characters)
+            socket.emit("upload_images", strBase64)
+        } catch {
+            print(error)
+        }
+    }
 }

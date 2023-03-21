@@ -14,12 +14,14 @@ struct Line {
 }
 
 struct ContentView: View {
+    @ObservedObject var service: SocketService = SocketService()
+    
     @State var currentLine = Line()
-    @State var lines: [Line] = []
+    //@State var lines: [Line] = []
     
     var canvas: some View {
         return Canvas { context, size in
-            for line in lines {
+            for line in service.lines {
                 var path = Path()
                 path.addLines(line.points)
                 context.stroke(path, with: .color(line.color), lineWidth: line.lineWidth)
@@ -28,7 +30,7 @@ struct ContentView: View {
             .onChanged({ value in
                             let point = value.location
                             currentLine.points.append(point)
-                            lines.append(currentLine)
+                            service.lines.append(currentLine)
                         })
             .onEnded({ value in
                 currentLine = Line(color: .red)
@@ -40,7 +42,10 @@ struct ContentView: View {
         VStack {
             canvas
             Button("Clear") {
-                lines = []
+                service.lines = []
+            }
+            .onChange(of: currentLine.points) {_ in
+                service.sendLines()
             }
         }
     }
