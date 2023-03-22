@@ -14,6 +14,7 @@ final class SocketService: ObservableObject {
     
     @Published var socket: SocketIOClient
     @Published var lines: [Line] = []
+    @Published var image: Data = Data()
     
     init() {
         socket = manager.defaultSocket
@@ -25,12 +26,8 @@ final class SocketService: ObservableObject {
         socket.on("download_lines") { (data, ack) in
             if let buffer = data[0] as? String {
                 let dataDecoded : Data = Data(base64Encoded: buffer, options: .ignoreUnknownCharacters)!
-                do {
-                    let dataArray = try JSONSerialization.jsonObject(with: dataDecoded, options: []) as! [Line]
-                    self.lines = dataArray
-                } catch {
-                    print(error)
-                }
+                self.image = dataDecoded
+                
             }
         }
         

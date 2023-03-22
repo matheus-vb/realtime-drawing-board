@@ -7,7 +7,11 @@
 
 import SwiftUI
 
-struct Line {
+
+let WIDTH: CGFloat = 800
+let HEIGHT: CGFloat = 1000
+
+struct Line  {
     var points = [CGPoint]()
     var color: Color = .red
     var lineWidth: Double = 8.0
@@ -16,8 +20,7 @@ struct Line {
 struct ContentView: View {
     @ObservedObject var service: SocketService = SocketService()
     
-    @State var currentLine = Line()
-    //@State var lines: [Line] = []
+    @State var currentLine = Line(points: [])
     
     var canvas: some View {
         return Canvas { context, size in
@@ -26,26 +29,55 @@ struct ContentView: View {
                 path.addLines(line.points)
                 context.stroke(path, with: .color(line.color), lineWidth: line.lineWidth)
             }
-        }.gesture(DragGesture(minimumDistance: 0, coordinateSpace: .local)
+        }
+        .gesture(DragGesture(minimumDistance: 0, coordinateSpace: .local)
             .onChanged({ value in
-                            let point = value.location
-                            currentLine.points.append(point)
-                            service.lines.append(currentLine)
-                        })
-            .onEnded({ value in
-                currentLine = Line(color: .red)
-             })
-          )
+                let point = value.location
+                currentLine.points.append(point)
+                service.lines.append(currentLine)
+            })
+                .onEnded({ value in
+                    currentLine = Line(points: [])
+                })
+        )
+    }
+    
+    var drawingScene: some View {
+        ZStack {
+            canvas
+                .frame(width: WIDTH, height: HEIGHT)
+            Image(uiImage: UIImage(data: service.image) ?? UIImage())
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(width: WIDTH, height: HEIGHT)
+                .allowsHitTesting(false)
+        }
     }
     
     var body: some View {
         VStack {
-            canvas
+            drawingScene
             Button("Clear") {
                 service.lines = []
             }
+            .frame(height: 100)
             .onChange(of: currentLine.points) {_ in
-                service.sendLines()
+                sendCanvas()
+            }
+        }
+    }
+    
+    func sendCanvas() {
+        let bounds = UIScreen.main.bounds
+        let width = bounds.size.width
+        let height = bounds.size.height
+        
+        let renderer = ImageRenderer(content: drawingScene.frame(width: WIDTH, height: HEIGHT))
+        
+        if let uiImage = renderer.uiImage {
+            if let data = uiImage.pngData() {
+                let strBase64 = data.base64EncodedString(options: .lineLength64Characters)
+                service.socket.emit("upload_lines", strBase64)
             }
         }
     }
