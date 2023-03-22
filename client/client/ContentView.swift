@@ -7,15 +7,8 @@
 
 import SwiftUI
 
-
 let WIDTH: CGFloat = 800
 let HEIGHT: CGFloat = 1000
-
-struct Line  {
-    var points = [CGPoint]()
-    var color: Color = .red
-    var lineWidth: Double = 8.0
-}
 
 struct ContentView: View {
     @ObservedObject var service: SocketService = SocketService()
@@ -68,10 +61,7 @@ struct ContentView: View {
     }
     
     func sendCanvas() {
-        let bounds = UIScreen.main.bounds
-        let width = bounds.size.width
-        let height = bounds.size.height
-        
+
         let renderer = ImageRenderer(content: drawingScene.frame(width: WIDTH, height: HEIGHT))
         
         if let uiImage = renderer.uiImage {

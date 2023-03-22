@@ -13,6 +13,7 @@
 		869B909A29C9EEA000EA6D78 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 869B909929C9EEA000EA6D78 /* Preview Assets.xcassets */; };
 		869B90A229C9EFA400EA6D78 /* SocketIO in Frameworks */ = {isa = PBXBuildFile; productRef = 869B90A129C9EFA400EA6D78 /* SocketIO */; };
 		869B90A429C9F78600EA6D78 /* SocketService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 869B90A329C9F78600EA6D78 /* SocketService.swift */; };
+		869B90A629CA9B2A00EA6D78 /* Line.swift in Sources */ = {isa = PBXBuildFile; fileRef = 869B90A529CA9B2A00EA6D78 /* Line.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +23,7 @@
 		869B909629C9EEA000EA6D78 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		869B909929C9EEA000EA6D78 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		869B90A329C9F78600EA6D78 /* SocketService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocketService.swift; sourceTree = "<group>"; };
+		869B90A529CA9B2A00EA6D78 /* Line.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Line.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,6 +59,7 @@
 			children = (
 				869B909229C9EE9E00EA6D78 /* clientApp.swift */,
 				869B909429C9EE9E00EA6D78 /* ContentView.swift */,
+				869B90A529CA9B2A00EA6D78 /* Line.swift */,
 				869B90A329C9F78600EA6D78 /* SocketService.swift */,
 				869B909629C9EEA000EA6D78 /* Assets.xcassets */,
 				869B909829C9EEA000EA6D78 /* Preview Content */,
@@ -149,6 +152,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				869B909529C9EE9E00EA6D78 /* ContentView.swift in Sources */,
+				869B90A629CA9B2A00EA6D78 /* Line.swift in Sources */,
 				869B909329C9EE9E00EA6D78 /* clientApp.swift in Sources */,
 				869B90A429C9F78600EA6D78 /* SocketService.swift in Sources */,
 			);
