@@ -15,6 +15,49 @@ struct ContentView: View {
     
     @State var currentLine = Line(points: [])
     
+    
+    var toolbar: some View {
+        HStack {
+            Group{
+                Spacer()
+                Button(action: {}, label: {
+                    Image(systemName: "pencil")
+                        .foregroundColor(Color(.black))
+                        .scaleEffect(4)
+                })
+                Spacer()
+                Button(action: {}, label: {
+                    Image(systemName: "eraser")
+                        .foregroundColor(Color(.black))
+                        .scaleEffect(4)
+                })
+                Spacer()
+            }
+
+            Button(action: {}, label: {
+                Circle()
+                    .foregroundColor(.red)
+                    .scaleEffect(0.8)
+            })
+            Spacer()
+
+            Button(action: {}, label: {
+                Circle()
+                    .foregroundColor(.blue)
+                    .scaleEffect(0.8)
+            })
+            Spacer()
+
+            Button(action: {}, label: {
+                Circle()
+                    .foregroundColor(.green)
+                    .scaleEffect(0.8)
+            })
+            Spacer()
+
+        }.frame(height: 120)
+    }
+    
     var canvas: some View {
         return Canvas { context, size in
             for line in service.lines {
@@ -49,6 +92,7 @@ struct ContentView: View {
     
     var body: some View {
         VStack {
+            toolbar
             drawingScene
             Button("Clear") {
                 service.lines = []
